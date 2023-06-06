@@ -1,6 +1,25 @@
 const express = require('express')
 const app = express()
 const {Sequelize} = require("sequelize")
+// Swagger
+const swaggerJsDoc = require('swagger-jsdoc');
+const swaggerUi = require('swagger-ui-express');
+const swaggerOptions = {
+    swaggerDefinition: {
+      info: {
+        title: 'Dialog API',
+        description: 'Dialog API Information',
+        contact: {
+          name: 'Developer Name',
+        },
+        servers: ['http://localhost:3000'],
+      },
+    },
+    apis: ['./routes/routes.js'],
+  };
+  
+  const swaggerDocs = swaggerJsDoc(swaggerOptions);
+  app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 const Dialog=require("./models/Dialog")
 
