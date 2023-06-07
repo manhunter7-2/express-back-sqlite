@@ -6,6 +6,7 @@ const swaggerJsDoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
 const swaggerOptions = {
     swaggerDefinition: {
+        openapi: '3.0.0',
       info: {
         title: 'Dialog API',
         description: 'Dialog API Information',
@@ -15,47 +16,48 @@ const swaggerOptions = {
         servers: ['http://localhost:3000'],
       },
     },
-    apis: ['./routes/routes.js'],
+    apis: ['./routes/DialogRoutes.js'],
   };
   
   const swaggerDocs = swaggerJsDoc(swaggerOptions);
   app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
-const Dialog=require("./models/Dialog")
+// const Dialog=require("./models/Dialog")
 
-app.use(express.json())
+// app.use(express.json())
 
-app.get('/', (req, res) => {
-    res.status(200).json({
-        message:"Welcome"
-    })
-})
+// app.get('/', (req, res) => {
+//     res.status(200).json({
+//         message:"Welcome"
+//     })
+// })
 
-app.get('/allchats', async (req, res) =>{
-    const all = await Dialog.findAll();
+// app.get('/allchats', async (req, res) =>{
+//     const all = await Dialog.findAll();
 
-    res.status(200).json({
-        data: all
-    })
-})
+//     res.status(200).json({
+//         data: all
+//     })
+// })
 
-app.post('/create', (req, res) => {
-    const dialog = Dialog.build({
-        question: req.body.question,
-        answer: req.body.answer,
-        date: new Date()
-    });
-    (async function save(){
-        await dialog.save();
-        console.log(dialog);
-        console.log("Success");
-    })()
-    res.status(200).json({
-        message: "Success !"
-    })
-})
+// app.post('/create', (req, res) => {
+//     const dialog = Dialog.build({
+//         question: req.body.question,
+//         answer: req.body.answer,
+//         date: new Date()
+//     });
+//     (async function save(){
+//         await dialog.save();
+//         console.log(dialog);
+//         console.log("Success");
+//     })()
+//     res.status(200).json({
+//         message: "Success !"
+//     })
+// })
 
 
+app.use('/', require('./routes/DialogRoutes'))
 
 const sequelize = new Sequelize({
     dialect: 'sqlite',
