@@ -101,4 +101,7 @@ router.get('/allchats', DialogController.getAll)
  */
 router.post('/create', DialogController.add)
 
+
+router.delete('/delete', DialogController.delete)
+
 module.exports = router

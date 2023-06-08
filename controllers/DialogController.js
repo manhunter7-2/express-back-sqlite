@@ -1,4 +1,9 @@
 const Dialog = require("../models/Dialog");
+const { Sequelize, DataTypes } = require("sequelize");
+const sequelize = new Sequelize({
+    dialect: 'sqlite',
+    storage: '../db/database.sqlite'
+})
 
 const DialogController = {
     home: (req, res) => {
@@ -26,6 +31,10 @@ const DialogController = {
         res.status(200).json({
             data: all
         })
+    },
+    delete: async(req, res) =>{
+        await Dialog.destroy({where: {id: req.id}});
+        console.log("Deleted !");
     }
 }
 module.exports = DialogController
